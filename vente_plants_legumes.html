@@ -1,0 +1,114 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans,system-ui);background:var(--color-background-tertiary);color:var(--color-text-primary);padding:2rem 1rem}
+h1{font-size:22px;font-weight:500;margin-bottom:4px}
+.sub{font-size:14px;color:var(--color-text-secondary);margin-bottom:1.5rem}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.5rem}
+.tag{font-size:12px;padding:4px 12px;border-radius:20px;border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-secondary);cursor:pointer;transition:.15s}
+.tag.active{background:#1D9E75;color:#fff;border-color:#1D9E75}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;display:flex;flex-direction:column;gap:10px;transition:.15s}
+.card:hover{border-color:var(--color-border-secondary)}
+.card-head{display:flex;align-items:center;gap:10px}
+.badge{width:36px;height:36px;border-radius:var(--border-radius-md);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.card-title{font-size:15px;font-weight:500}
+.variety{font-size:12px;color:var(--color-text-secondary)}
+.desc{font-size:13px;color:var(--color-text-secondary);line-height:1.5}
+.dates{font-size:12px;display:flex;flex-direction:column;gap:4px}
+.date-row{display:flex;justify-content:space-between;gap:8px}
+.date-label{color:var(--color-text-tertiary)}
+.date-val{color:var(--color-text-secondary);font-weight:500}
+.footer{display:flex;align-items:center;justify-content:space-between;margin-top:4px}
+.price{font-size:20px;font-weight:500;color:#1D9E75}
+.stock{font-size:12px;padding:3px 8px;border-radius:20px}
+.in{background:#EAF3DE;color:#3B6D11}
+.low{background:#FAEEDA;color:#854F0B}
+.out{background:#FCEBEB;color:#A32D2D}
+.divider{border:none;border-top:0.5px solid var(--color-border-tertiary);margin:0}
+.contact{margin-top:2rem;background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.contact-text{flex:1;min-width:180px}
+.contact-text p{font-size:14px;color:var(--color-text-secondary);margin-top:4px}
+.btn{font-size:13px;padding:8px 18px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);background:var(--color-background-secondary);color:var(--color-text-primary);cursor:pointer}
+.btn:hover{background:var(--color-background-tertiary)}
+.hidden{display:none}
+</style>
+
+<h2 class="sr-only" style="position:absolute;width:1px;overflow:hidden">Boutique plants de légumes en pot — édition printemps 2025</h2>
+
+<h1><i class="ti ti-plant-2" aria-hidden="true" style="font-size:20px;vertical-align:-3px;margin-right:6px;color:#1D9E75"></i>Plants de légumes en pot</h1>
+<p class="sub">Produits maison · Semis naturels · Retrait sur place — Cormeilles-en-Parisis</p>
+
+<div class="filters">
+  <button class="tag active" onclick="filter('all',this)">Tous</button>
+  <button class="tag" onclick="filter('fruit',this)">Fruits</button>
+  <button class="tag" onclick="filter('feuille',this)">Feuilles</button>
+  <button class="tag" onclick="filter('racine',this)">Racines</button>
+  <button class="tag" onclick="filter('aromatique',this)">Aromatiques</button>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<div class="contact">
+  <i class="ti ti-message-circle" aria-hidden="true" style="font-size:28px;color:#1D9E75;flex-shrink:0"></i>
+  <div class="contact-text">
+    <strong style="font-size:15px">Réservation & retrait</strong>
+    <p>Contactez-moi pour réserver vos plants — paiement sur place à l'enlèvement.</p>
+  </div>
+  <a href="mailto:contact@exemple.fr" class="btn"><i class="ti ti-mail" aria-hidden="true" style="font-size:15px;vertical-align:-2px;margin-right:5px"></i>Me contacter</a>
+</div>
+
+<script>
+const plants=[
+  {cat:'fruit',emoji:'🍅',name:'Tomate',variety:'Cœur de bœuf',desc:'Chair dense, peu de graines. Idéale pour les salades et les farcis.',semis:'15 fév. 2025',pot:'20 mars 2025',prix:2.5,stock:'in'},
+  {cat:'fruit',emoji:'🍅',name:'Tomate',variety:'Cerise Sweet 100',desc:'Grappes généreuses de petites tomates très sucrées.',semis:'15 fév. 2025',pot:'20 mars 2025',prix:2.5,stock:'in'},
+  {cat:'fruit',emoji:'🫑',name:'Poivron',variety:'Lamuyo rouge',desc:'Poivron doux à grande capacité de production, chair épaisse.',semis:'1er fév. 2025',pot:'15 mars 2025',prix:2.5,stock:'low'},
+  {cat:'fruit',emoji:'🌶️',name:'Piment',variety:'Doux d\'Espagne',desc:'Piment allongé sans piquant, parfait pour farcir ou griller.',semis:'1er fév. 2025',pot:'15 mars 2025',prix:2.0,stock:'in'},
+  {cat:'fruit',emoji:'🥒',name:'Courgette',variety:'Noire de Milan',desc:'Variété rustique à peau sombre et chair ferme.',semis:'15 mars 2025',pot:'5 avr. 2025',prix:2.0,stock:'in'},
+  {cat:'fruit',emoji:'🫘',name:'Concombre',variety:'Marketmore',desc:'Bonne résistance aux maladies, fruit lisse et croquant.',semis:'20 mars 2025',pot:'10 avr. 2025',prix:2.0,stock:'low'},
+  {cat:'feuille',emoji:'🥬',name:'Salade',variety:'Batavia verte',desc:'Feuilles croquantes et résistantes à la montaison.',semis:'1er mars 2025',pot:'25 mars 2025',prix:1.5,stock:'in'},
+  {cat:'feuille',emoji:'🥬',name:'Laitue',variety:'Rouge de Grenoble',desc:'Variété ancienne, feuillaison dense et colorée.',semis:'1er mars 2025',pot:'25 mars 2025',prix:1.5,stock:'out'},
+  {cat:'feuille',emoji:'🌿',name:'Épinard',variety:'Géant d\'hiver',desc:'Feuilles larges et savoureuses, bonne tenue à la chaleur.',semis:'10 mars 2025',pot:'1er avr. 2025',prix:1.5,stock:'in'},
+  {cat:'racine',emoji:'🥕',name:'Carotte',variety:'Nantaise 2',desc:'Racine cylindrique, douce et sucrée. Semis en pot profond.',semis:'5 mars 2025',pot:'pot direct',prix:1.5,stock:'in'},
+  {cat:'aromatique',emoji:'🌿',name:'Basilic',variety:'Grand vert',desc:'Feuilles larges très parfumées, idéal pour le pistou.',semis:'10 mars 2025',pot:'5 avr. 2025',prix:1.5,stock:'in'},
+  {cat:'aromatique',emoji:'🌿',name:'Persil',variety:'Frisé commun',desc:'Persistant, aromatique, facile en bac ou en pot.',semis:'5 mars 2025',pot:'1er avr. 2025',prix:1.5,stock:'in'},
+];
+
+const stockLabel={in:'Disponible',low:'Derniers',out:'Épuisé'};
+let current='all';
+
+function renderCards(list){
+  const g=document.getElementById('grid');
+  g.innerHTML='';
+  list.forEach(p=>{
+    const d=document.createElement('div');
+    d.className='card';
+    d.innerHTML=`
+      <div class="card-head">
+        <div class="badge" style="background:var(--color-background-secondary)">${p.emoji}</div>
+        <div><div class="card-title">${p.name}</div><div class="variety">${p.variety}</div></div>
+      </div>
+      <p class="desc">${p.desc}</p>
+      <hr class="divider">
+      <div class="dates">
+        <div class="date-row"><span class="date-label"><i class="ti ti-seeding" style="font-size:13px;vertical-align:-1px" aria-hidden="true"></i> Semis</span><span class="date-val">${p.semis}</span></div>
+        <div class="date-row"><span class="date-label"><i class="ti ti-bucket" style="font-size:13px;vertical-align:-1px" aria-hidden="true"></i> Mise en pot</span><span class="date-val">${p.pot}</span></div>
+      </div>
+      <hr class="divider">
+      <div class="footer">
+        <span class="price">${p.prix.toFixed(2)} €</span>
+        <span class="stock ${p.stock}">${stockLabel[p.stock]}</span>
+      </div>`;
+    g.appendChild(d);
+  });
+}
+
+function filter(cat,el){
+  current=cat;
+  document.querySelectorAll('.tag').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  renderCards(cat==='all'?plants:plants.filter(p=>p.cat===cat));
+}
+
+renderCards(plants);
+</script>
