@@ -56,26 +56,16 @@
   @keyframes spin { to { transform: rotate(360deg); } }
 
   /* Grid */
-<<<<<<< HEAD
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 14px; }
 
   .card {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: var(--radius); overflow: hidden;
     display: flex; flex-direction: column;
-=======
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
-
-  .card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 1rem 1.1rem;
-    display: flex; flex-direction: column; gap: 10px;
->>>>>>> 361088a5e1890ef367a8372eb5403f11b2a25099
     transition: border-color .15s, box-shadow .15s;
   }
   .card:hover { border-color: rgba(29,158,117,.4); box-shadow: 0 2px 12px rgba(29,158,117,.08); }
 
-<<<<<<< HEAD
   /* Zone image en haut de carte */
   .card-visual {
     width: 100%; height: 155px;
@@ -105,17 +95,6 @@
 
   .card-title { font-size: 15px; font-weight: 600; }
   .variety { font-size: 12px; color: var(--muted); margin-top: 2px; }
-=======
-  .card-head { display: flex; align-items: center; gap: 10px; }
-  .emoji-badge {
-    width: 38px; height: 38px; border-radius: 10px;
-    background: var(--green-light); display: flex; align-items: center;
-    justify-content: center; font-size: 20px; flex-shrink: 0;
-  }
-  .card-title { font-size: 15px; font-weight: 600; }
-  .variety { font-size: 12px; color: var(--muted); margin-top: 2px; }
-
->>>>>>> 361088a5e1890ef367a8372eb5403f11b2a25099
   .desc { font-size: 13px; color: var(--muted); line-height: 1.55; }
 
   hr { border: none; border-top: 1px solid var(--border); }
@@ -125,11 +104,7 @@
   .date-label { color: var(--hint); }
   .date-val { font-weight: 500; color: var(--muted); }
 
-<<<<<<< HEAD
   .footer-card { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 4px; }
-=======
-  .footer-card { display: flex; align-items: center; justify-content: space-between; margin-top: 2px; }
->>>>>>> 361088a5e1890ef367a8372eb5403f11b2a25099
   .price { font-size: 22px; font-weight: 600; color: var(--green); }
   .price span { font-size: 13px; font-weight: 400; color: var(--muted); }
 
@@ -138,7 +113,6 @@
   .stock.low { background: var(--amber-light); color: var(--amber-text); }
   .stock.out { background: var(--red-light);   color: var(--red-text);   }
 
-<<<<<<< HEAD
   /* Lightbox */
   .lightbox {
     display: none; position: fixed; inset: 0; z-index: 200;
@@ -160,8 +134,6 @@
     text-shadow: 0 1px 4px rgba(0,0,0,.6);
   }
 
-=======
->>>>>>> 361088a5e1890ef367a8372eb5403f11b2a25099
   /* Contact */
   .contact {
     margin-top: 2.5rem; background: var(--surface); border: 1px solid var(--border);
@@ -185,11 +157,8 @@
 
   @media (max-width: 480px) {
     .grid { grid-template-columns: 1fr 1fr; }
-<<<<<<< HEAD
     .card-visual { height: 120px; }
     .card-body { padding: 0.75rem; gap: 6px; }
-=======
->>>>>>> 361088a5e1890ef367a8372eb5403f11b2a25099
   }
 </style>
 </head>
@@ -205,7 +174,6 @@
   </header>
 
   <div class="filters" id="filters"></div>
-<<<<<<< HEAD
   <div id="content">
     <div class="state">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
@@ -213,23 +181,12 @@
     </div>
   </div>
 
-=======
-
-  <div id="content">
-    <div class="state">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
-      Chargement des plants…
-    </div>
-  </div>
-
->>>>>>> 361088a5e1890ef367a8372eb5403f11b2a25099
   <div class="contact">
     <div class="contact-icon">🌱</div>
     <div class="contact-body">
       <strong>Réservation & retrait</strong>
       <p>Contactez-moi pour réserver vos plants.<br>Paiement sur place à l'enlèvement — espèces ou virement.</p>
     </div>
-<<<<<<< HEAD
     <a href="mailto:eremy@sqli.com" class="btn">✉ Me contacter</a>
   </div>
 
@@ -248,26 +205,6 @@ const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQqaboj4K
 const EMOJI = {
   tomate: "🍅", poivron: "🫑", piment: "🌶️", courgette: "🥒",
   concombre: "🥒", salade: "🥬", laitue: "🥬", epinard: "🌿",
-=======
-    <!-- ✏️ Remplacez l'adresse email ci-dessous -->
-    <a href="mailto:contact@exemple.fr" class="btn">✉ Me contacter</a>
-  </div>
-
-  <footer>Mise à jour automatique depuis Google Sheets · Données actualisées à chaque visite</footer>
-</div>
-
-<script>
-// ============================================================
-// ✏️  SEULE LIGNE À MODIFIER : collez ici l'URL CSV de votre
-//     Google Sheet (voir instructions dans le README ci-dessous)
-// ============================================================
-const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQqaboj4KRyeXtbJ-WeeviCLnURdmCyiWicGNy6nLentyKTOkxmuYay_RYjkA_OGu-Rjci1AlmUmJ3M/pub?output=csv";
-// ============================================================
-
-const EMOJI = {
-  tomate: "🍅", poivron: "🫑", piment: "🌶️", courgette: "🥒",
-  concombre: "🥒", salade: "🥬", laitue: "🥬", épinard: "🌿",
->>>>>>> 361088a5e1890ef367a8372eb5403f11b2a25099
   carotte: "🥕", basilic: "🌿", persil: "🌿", ciboulette: "🌿",
   poireau: "🧅", oignon: "🧅", ail: "🧄", courge: "🎃",
   haricot: "🫘", pois: "🫛", aubergine: "🍆", bette: "🌿",
@@ -275,7 +212,6 @@ const EMOJI = {
 };
 
 const STOCK_LABEL = { in: "Disponible", low: "Derniers", out: "Épuisé" };
-<<<<<<< HEAD
 const CAT_LABEL   = { fruit: "Fruits", feuille: "Feuilles", racine: "Racines", aromatique: "Aromatiques" };
 
 let allPlants = [];
@@ -381,89 +317,6 @@ async function loadSheet() {
     document.getElementById("content").innerHTML =
       `<div class="state">❌ Impossible de charger les données<br>
        <small style="color:#9b9b96;margin-top:8px;display:block">${e.message}</small></div>`;
-=======
-const CAT_LABEL = { fruit: "Fruits", feuille: "Feuilles", racine: "Racines", aromatique: "Aromatiques" };
-
-let allPlants = [];
-let currentCat = "all";
-
-function getEmoji(name) {
-  const key = name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
-  return EMOJI[key] || EMOJI.default;
-}
-
-function parseCSV(text) {
-  const lines = text.trim().split("\n");
-  const headers = lines[0].split(",").map(h => h.trim().replace(/"/g,""));
-  return lines.slice(1).map(line => {
-    const vals = line.match(/(".*?"|[^,]+|(?<=,)(?=,)|^(?=,)|(?<=,)$)/g) || [];
-    const obj = {};
-    headers.forEach((h, i) => { obj[h] = (vals[i] || "").replace(/"/g,"").trim(); });
-    return obj;
-  }).filter(p => p.nom);
-}
-
-function renderCards(plants) {
-  if (!plants.length) {
-    return `<div class="state">Aucun plant dans cette catégorie.</div>`;
-  }
-  return `<div class="grid">${plants.map(p => {
-    const emoji = getEmoji(p.nom);
-    const prix = parseFloat(p.prix) || 0;
-    const stock = ["in","low","out"].includes(p.stock) ? p.stock : "in";
-    return `<div class="card">
-      <div class="card-head">
-        <div class="emoji-badge">${emoji}</div>
-        <div><div class="card-title">${p.nom}</div><div class="variety">${p.variete || ""}</div></div>
-      </div>
-      <p class="desc">${p.description || ""}</p>
-      <hr>
-      <div class="dates">
-        <div class="date-row"><span class="date-label">🌱 Semis</span><span class="date-val">${p.semis || "—"}</span></div>
-        <div class="date-row"><span class="date-label">🪴 Mise en pot</span><span class="date-val">${p.pot || "—"}</span></div>
-      </div>
-      <hr>
-      <div class="footer-card">
-        <span class="price">${prix.toFixed(2)} <span>€ / plant</span></span>
-        <span class="stock ${stock}">${STOCK_LABEL[stock]}</span>
-      </div>
-    </div>`;
-  }).join("")}</div>`;
-}
-
-function renderFilters(plants) {
-  const cats = [...new Set(plants.map(p => p.categorie).filter(Boolean))];
-  const el = document.getElementById("filters");
-  el.innerHTML = `<button class="tag active" onclick="filter('all',this)">Tous (${plants.length})</button>` +
-    cats.map(c => {
-      const count = plants.filter(p => p.categorie === c).length;
-      return `<button class="tag" onclick="filter('${c}',this)">${CAT_LABEL[c]||c} (${count})</button>`;
-    }).join("");
-}
-
-function filter(cat, el) {
-  currentCat = cat;
-  document.querySelectorAll(".tag").forEach(t => t.classList.remove("active"));
-  el.classList.add("active");
-  const filtered = cat === "all" ? allPlants : allPlants.filter(p => p.categorie === cat);
-  document.getElementById("content").innerHTML = renderCards(filtered);
-}
-
-async function loadSheet() {
-  if (SHEET_CSV_URL === "VOTRE_URL_ICI") {
-    document.getElementById("content").innerHTML = `<div class="state">⚙️ Configurez l'URL Google Sheets dans le fichier HTML<br><small style="color:#9b9b96;margin-top:8px;display:block">Voir les instructions en commentaire dans le code</small></div>`;
-    return;
-  }
-  try {
-    const res = await fetch(SHEET_CSV_URL);
-    if (!res.ok) throw new Error("Réponse réseau incorrecte");
-    const text = await res.text();
-    allPlants = parseCSV(text);
-    renderFilters(allPlants);
-    document.getElementById("content").innerHTML = renderCards(allPlants);
-  } catch (e) {
-    document.getElementById("content").innerHTML = `<div class="state">❌ Impossible de charger les données<br><small style="color:#9b9b96;margin-top:8px;display:block">${e.message}</small></div>`;
->>>>>>> 361088a5e1890ef367a8372eb5403f11b2a25099
   }
 }
 
