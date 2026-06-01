@@ -250,7 +250,7 @@ hr { border:none; border-top:1px solid var(--border); }
   display:flex; align-items:center; justify-content:center; gap:8px;
 }
 .order-btn:hover { background:var(--green-dark); }
-.order-btn:disabled { background:#ccc; cursor:not-allowed; }
+.order-btn.disabled { background:#ccc; cursor:not-allowed; pointer-events:none; }
 .order-note { font-size:11px; color:var(--muted); text-align:center; margin-top:8px; line-height:1.5; }
 
 /* CONTACT */
@@ -348,9 +348,9 @@ footer { text-align:center; font-size:12px; color:var(--hint); padding-bottom:2r
     <div class="summary-row"><span>Sous-total</span><span id="subTotal">0,00 €</span></div>
     <div class="summary-row"><span>Nombre de plants</span><span id="nbPlants">0</span></div>
     <div class="summary-total"><span>Total</span><span id="totalPrice">0,00 €</span></div>
-    <button class="order-btn" id="orderBtn" onclick="passCommande()" disabled>
+    <a class="order-btn" id="orderBtn" href="#" onclick="return passCommande()">
       ✉ Envoyer ma commande
-    </button>
+    </a>
     <p class="order-note">Paiement sur place à l'enlèvement<br>Espèces ou virement · Retrait à Levallois</p>
   </div>
 </div>
@@ -537,7 +537,9 @@ function updateCart() {
   document.getElementById("subTotal").textContent  = fmt(total);
   document.getElementById("nbPlants").textContent  = nb + " plant" + (nb>1?"s":"");
   document.getElementById("totalPrice").textContent = fmt(total);
-  document.getElementById("orderBtn").disabled = nb === 0;
+  const btn = document.getElementById("orderBtn");
+  if (nb === 0) { btn.classList.add("disabled"); btn.setAttribute("aria-disabled","true"); }
+  else          { btn.classList.remove("disabled"); btn.removeAttribute("aria-disabled"); }
 
   const el = document.getElementById("cartItems");
   if (!items.length) {
@@ -573,32 +575,33 @@ function toggleCart() {
 
 function passCommande() {
   const items = Object.values(cart);
-  if (!items.length) return;
+  if (!items.length) return false;
   const total = items.reduce((s,i) => s + i.qty * i.prix, 0);
   const nb    = items.reduce((s,i) => s + i.qty, 0);
 
   const lignes = items.map(i =>
-    `  - ${i.nom} (${i.variete}) × ${i.qty} = ${fmt(i.prix * i.qty)}`
+    `  - ${i.nom} (${i.variete}) x${i.qty} = ${fmt(i.prix * i.qty)}`
   ).join("\n");
 
-  const body =
-`Bonjour,
+  const body = "Bonjour,\n\nJe souhaite réserver les plants suivants :\n\n"
+    + lignes
+    + "\n\n--------------------------------\n"
+    + "Nombre de plants : " + nb + "\n"
+    + "TOTAL : " + fmt(total) + "\n"
+    + "--------------------------------\n\n"
+    + "Merci de me confirmer la disponibilité et les modalités de retrait.\n\nCordialement";
 
-Je souhaite réserver les plants suivants :
+  const subject = "Commande plants potager 2026 - " + nb + " plant" + (nb>1?"s":"") + " - " + fmt(total);
+  const mailto = "mailto:" + CONTACT_EMAIL
+    + "?subject=" + encodeURIComponent(subject)
+    + "&body=" + encodeURIComponent(body);
 
-${lignes}
-
-────────────────────────────────
-Nombre de plants : ${nb}
-TOTAL : ${fmt(total)}
-────────────────────────────────
-
-Merci de me confirmer la disponibilité et les modalités de retrait.
-
-Cordialement`;
-
-  const subject = encodeURIComponent(`Commande plants potager 2026 — ${nb} plant${nb>1?"s":""} — ${fmt(total)}`);
-  window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${encodeURIComponent(body)}`;
+  const a = document.createElement("a");
+  a.href = mailto;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  return false;
 }
 
 function showToast(msg) {
