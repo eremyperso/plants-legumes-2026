@@ -151,6 +151,11 @@ hr { border:none; border-top:1px solid var(--border); }
 .stock.in  { background:var(--green-light); color:var(--green-text); }
 .stock.low { background:var(--amber-light); color:var(--amber-text); }
 .stock.out { background:var(--red-light);   color:var(--red-text); }
+.stock-low-badge {
+  font-size:10px; font-weight:600; color:var(--amber-text);
+  background:var(--amber-light); padding:2px 7px;
+  border-radius:10px; white-space:nowrap;
+}
 
 /* ADD BUTTON */
 .add-btn {
@@ -441,15 +446,19 @@ function renderCards(plants) {
          </div>`
       : `<div class="card-visual"><span class="emoji-big">${emoji}</span></div>`;
 
-    const addCtrl = stock !== "out"
-      ? inCart
+    const addCtrl = stock === "out"
+      ? `<span style="font-size:11px;color:#A32D2D;font-weight:600">Épuisé</span>`
+      : inCart
         ? `<div class="qty-ctrl">
+             ${stock === "low" ? `<span class="stock-low-badge">⚠️ Derniers</span>` : ""}
              <button class="qty-btn" onclick="changeQtyIdx(${idx},-1)">−</button>
              <span class="qty-num">${inCart.qty}</span>
              <button class="qty-btn" onclick="changeQtyIdx(${idx},1)">+</button>
            </div>`
-        : `<button class="add-btn" onclick="addToCartIdx(${idx})" title="Ajouter">+</button>`
-      : `<span style="font-size:11px;color:#A32D2D">Épuisé</span>`;
+        : `<div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+             ${stock === "low" ? `<span class="stock-low-badge">⚠️ Derniers</span>` : ""}
+             <button class="add-btn" onclick="addToCartIdx(${idx})" title="Ajouter">+</button>
+           </div>`;
 
     return `<div class="card">
       ${visual}
